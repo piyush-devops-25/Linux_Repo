@@ -1,12 +1,32 @@
 #sometimes we get this authentication issue when pushing content to git hence 
 
-ssh-add -l
+An SSH agent is like a secure memory assistant that runs in the background and remembers your SSH private key, so you don’t have to type your password (passphrase) every time you connect to a server or push code to GitHub.
 
-eval "$(ssh-agent -s)"
 
-ssh-add ~/.ssh/id_rsa
+| Step               | What Happens                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| 🔁 **Start**       | You run `eval "$(ssh-agent -s)"` to **start** the agent process.                                             |
+| 🔐 **Add Key**     | You run `ssh-add ~/.ssh/id_rsa` to **load** your private key into the agent.                                 |
+| 🧠 **Remember**    | The agent stores your key in memory (not on disk), so it's **secure** and **temporary**.                     |
+| 🤝 **Use**         | When you do `git push` or SSH to a server, the agent **automatically provides the key** to authenticate you. |
+| ⏳ **Session Ends** | The agent runs until you reboot, logout, or manually kill it. Then you'll need to add the key again.         |
 
-ssh-add -l
+
+
+1. Checks whether any SSH keys are currently loaded in the agent (your identity store).
+   ssh-add -l
+
+2. Starts the SSH agent, which runs in the background and holds your private keys in memory.
+   eval "$(ssh-agent -s)"
+
+3. Adds your SSH private key to the agent so it can be used during Git operations.
+   ssh-add ~/.ssh/id_rsa
+
+4. Confirm it's added
+   ssh-add -l
+
+
+Then perfom this : 
 
 git push -u origin main
 
