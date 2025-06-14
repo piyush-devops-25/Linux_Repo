@@ -1,0 +1,12 @@
+#sometimes we get this authentication issue when pushing content to git hence 
+
+ssh-add -l
+
+eval "$(ssh-agent -s)"
+
+ssh-add ~/.ssh/id_rsa
+
+ssh-add -l
+
+git push -u origin main
+
